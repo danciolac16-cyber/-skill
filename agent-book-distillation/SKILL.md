@@ -49,6 +49,7 @@ For the user's current book-knowledge-base project, apply these defaults unless 
 - The pre-distillation analysis should match the user's preferred granular style: reading self-check, extraction scale, source reliability, suggested module name, differences from related modules, core distillation value, planned modules, agent empowerment, black-box JSON, knowledge-base placement, and the next archive/index count.
 - Distill methodology and reusable agent capability, not isolated plot details, character trivia, or decorative summaries.
 - For image-heavy books, audit the visual material instead of treating images as decoration. Distinguish scanned page images, merely attractive illustrations, and instructional diagrams that carry method. Sample representative pages or extracted images when possible, describe what the diagrams teach, and convert useful visual demonstrations into agent-readable rules such as composition, shot size, depth, lighting contrast, visual focus, staging, eye-line, and spatial hierarchy.
+- When this skill is improved and synced to GitHub, use a Chinese commit message that clearly states the enhancement area, such as `增强：图片型书籍审计规则` or `增强：确认前不生成归档的流程规则`, so future history shows what each revision changed.
 
 ### 1. Source Audit
 
