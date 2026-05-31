@@ -36,6 +36,19 @@ In these cases, output an audit and recommendation first.
 
 ## Workflow
 
+### 0. User Project Defaults
+
+For the user's current book-knowledge-base project, apply these defaults unless the user explicitly changes them:
+
+- Project root: `F:\智能体书籍知识库`.
+- Formal HTML output: `F:\智能体书籍知识库\html`.
+- Formal PDF output: `F:\智能体书籍知识库\PDF`.
+- Temporary indexes, extracted text, audits, and working notes must go under a clearly named separate folder such as `F:\智能体书籍知识库\临时索引_阶段整理`; do not put temporary work inside `PDF` or `html`.
+- Use this sequence for every book: WeRead lookup + local full-text extraction/read if provided + external verification, then output analysis first.
+- Do not generate HTML/PDF until the user confirms with wording such as `确认`, `确定`, or `可以`.
+- The pre-distillation analysis should match the user's preferred granular style: reading self-check, extraction scale, source reliability, suggested module name, differences from related modules, core distillation value, planned modules, agent empowerment, black-box JSON, knowledge-base placement, and the next archive/index count.
+- Distill methodology and reusable agent capability, not isolated plot details, character trivia, or decorative summaries.
+
 ### 1. Source Audit
 
 Produce a concise self-check before distillation:
