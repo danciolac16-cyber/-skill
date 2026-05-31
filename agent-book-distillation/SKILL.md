@@ -48,6 +48,7 @@ For the user's current book-knowledge-base project, apply these defaults unless 
 - Do not generate HTML/PDF until the user confirms with wording such as `确认`, `确定`, or `可以`.
 - The pre-distillation analysis should match the user's preferred granular style: reading self-check, extraction scale, source reliability, suggested module name, differences from related modules, core distillation value, planned modules, agent empowerment, black-box JSON, knowledge-base placement, and the next archive/index count.
 - Distill methodology and reusable agent capability, not isolated plot details, character trivia, or decorative summaries.
+- For image-heavy books, audit the visual material instead of treating images as decoration. Distinguish scanned page images, merely attractive illustrations, and instructional diagrams that carry method. Sample representative pages or extracted images when possible, describe what the diagrams teach, and convert useful visual demonstrations into agent-readable rules such as composition, shot size, depth, lighting contrast, visual focus, staging, eye-line, and spatial hierarchy.
 
 ### 1. Source Audit
 
@@ -60,6 +61,7 @@ Produce a concise self-check before distillation:
 - WeRead lookup result: title/author/version found or not found.
 - External verification: official/publisher/catalog sources and what each confirms.
 - Existing distillation status: none, old version, upgraded version, duplicate risk.
+- For image-heavy books: page/image count, whether the file is scanned or born-digital, whether images are decorative or instructional, and what visual method can be extracted from representative samples.
 
 Recommended table:
 
