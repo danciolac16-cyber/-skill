@@ -1,0 +1,8 @@
+interface:
+  display_name: "Agent Book Distillation"
+  short_description: "Turn books into agent-ready knowledge modules."
+  brand_color: "#2563EB"
+  default_prompt: "Use $agent-book-distillation to audit and distill this book into an AI-agent knowledge module with three-source verification, JSON layers, and capability gains."
+
+policy:
+  allow_implicit_invocation: true
