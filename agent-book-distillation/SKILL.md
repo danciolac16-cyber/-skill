@@ -40,16 +40,17 @@ In these cases, output an audit and recommendation first.
 
 For the user's current book-knowledge-base project, apply these defaults unless the user explicitly changes them:
 
-- Project root: `F:\智能体书籍知识库`.
-- Formal HTML output: `F:\智能体书籍知识库\html`.
-- Formal PDF output: `F:\智能体书籍知识库\PDF`.
-- Temporary indexes, extracted text, audits, and working notes must go under a clearly named separate folder such as `F:\智能体书籍知识库\临时索引_阶段整理`; do not put temporary work inside `PDF` or `html`.
+- Project root: `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱`.
+- Formal HTML output: `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱\html`.
+- Formal PDF output: `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱\PDF`.
+- Temporary indexes, extracted text, audits, and working notes must go under a clearly named separate folder such as `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱\涓存椂绱㈠紩_闃舵鏁寸悊`; do not put temporary work inside `PDF` or `html`.
 - Use this sequence for every book: WeRead lookup + local full-text extraction/read if provided + external verification, then output analysis first.
-- Do not generate HTML/PDF until the user confirms with wording such as `确认`, `确定`, or `可以`.
+- Do not generate HTML/PDF until the user confirms with wording such as `纭`, `纭畾`, or `鍙互`.
 - The pre-distillation analysis should match the user's preferred granular style: reading self-check, extraction scale, source reliability, suggested module name, differences from related modules, core distillation value, planned modules, agent empowerment, black-box JSON, knowledge-base placement, and the next archive/index count.
 - Distill methodology and reusable agent capability, not isolated plot details, character trivia, or decorative summaries.
+- Formal archived HTML/PDF files must be knowledge-base ready, not thin summary cards. After the user confirms, create a deep enough module for later retrieval: include source audit, module role, per-book/per-volume responsibility when relevant, methodology layers, routing matrices, parameter/control tables, direct-use prompt templates, black-box JSON, quality checks, negative constraints, related modules, and index placement. For preset/library books, include scene/style/preset routing tables and reverse-engineering tags instead of only high-level value statements. The analysis step may be concise, but the formal archive should carry the actionable substance.
 - For image-heavy books, audit the visual material instead of treating images as decoration. Distinguish scanned page images, merely attractive illustrations, and instructional diagrams that carry method. Sample representative pages or extracted images when possible, describe what the diagrams teach, and convert useful visual demonstrations into agent-readable rules such as composition, shot size, depth, lighting contrast, visual focus, staging, eye-line, and spatial hierarchy.
-- When this skill is improved and synced to GitHub, use a Chinese commit message that clearly states the enhancement area, such as `增强：图片型书籍审计规则` or `增强：确认前不生成归档的流程规则`, so future history shows what each revision changed.
+- When this skill is improved and synced to GitHub, use a Chinese commit message that clearly states the enhancement area, such as `澧炲己锛氬浘鐗囧瀷涔︾睄瀹¤瑙勫垯` or `澧炲己锛氱‘璁ゅ墠涓嶇敓鎴愬綊妗ｇ殑娴佺▼瑙勫垯`, so future history shows what each revision changed.
 
 ### 1. Source Audit
 
