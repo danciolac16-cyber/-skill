@@ -1,58 +1,54 @@
-# 微信读书 Skills
+# Personal Codex Skills
 
-为 AI Agent 提供微信读书能力的 Skill 集合，支持搜书、书架管理、笔记导出、阅读统计等功能。
+这是一个个人 Codex Skills 集合仓库，用来存放可复用的智能体工作流、工具说明和领域方法论。
 
-## 安装
+当前包含两个并列模块：
 
-```bash
-npx skills add Tencent/WeChatReading -g
+| Skill | 用途 | 路径 |
+|---|---|---|
+| WeRead Skills | 微信读书能力：搜书、书架、笔记划线、阅读统计、书评与推荐。 | `weread-skills/` 或原仓库现有 `skills/` 文档 |
+| Agent Book Distillation | 三源校验书籍蒸馏：把本地全文、微信读书和外部资料结合，沉淀为智能体可调用的知识库模块。 | `agent-book-distillation/` |
+
+## Agent Book Distillation
+
+路径：[`agent-book-distillation/SKILL.md`](agent-book-distillation/SKILL.md)
+
+这个 skill 用于把书籍从“读书摘要”升级为“智能体能力模块”。它固化了以下流程：
+
+1. 本地全文、微信读书、外部资料三源校验。
+2. 全文抽取质量与版本自检。
+3. 提取核心方法论，而不是章节摘要。
+4. 标注对智能体的补强 `Agent_Capability_Delta`。
+5. 输出 JSON/search 层，方便迁移到 Obsidian、Notebook 或外接知识库。
+6. 生成 Prompt 模板、质量检查器、负面约束和知识库连接。
+
+适合在处理一本新书、升级旧版蒸馏、或者为第二大脑准备结构化知识节点时调用。
+
+## WeRead Skills
+
+原微信读书相关内容保留为本仓库的一个能力模块，主要用于：
+
+- 搜索书籍
+- 查看书架
+- 导出笔记和划线
+- 阅读统计
+- 浏览书评
+- 发现和推荐书籍
+
+如果使用微信读书 API，仍需按原模块要求配置 `WEREAD_API_KEY`。
+
+## Recommended Layout
+
+```text
+-skill/
+  README.md
+  agent-book-distillation/
+    SKILL.md
+    agents/openai.yaml
+  weread-skills/          # if maintained as local skill folder
+  skills/                 # existing WeRead reference docs, if present
 ```
 
-## 配置
+## Notes
 
-使用前需要设置微信读书 API Key：
-
-1. 前往 [https://weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills) 获取你的 API Key
-2. 设置环境变量：
-
-```bash
-export WEREAD_API_KEY=wrk-xxxxxxxx
-```
-
-> API Key 绑定用户身份，所有需要用户身份的接口会自动注入，无需手动传入。
-
-## 使用
-
-安装后直接用自然语言与 Agent 对话即可：
-
-```
-"帮我搜一下三体"
-"看看我的书架"
-"我这个月读了多久"
-"导出我在这本书里的划线"
-"给我推荐几本书"
-"这本书有什么热门划线"
-"三体有什么点评"
-```
-
-## 功能
-
-| 能力 | 说明 | 详细文档 |
-|------|------|----------|
-| 搜索书籍 | 书城搜索，支持电子书/有声书/网文/作者/全文等类型 | [`search.md`](skills/search.md) |
-| 书籍信息 | 书籍详情、章节目录、阅读进度 | [`book.md`](skills/book.md) |
-| 书架管理 | 查看书架（电子书 + 有声书 + 文章收藏） | [`shelf.md`](skills/shelf.md) |
-| 笔记划线 | 笔记概览、划线内容、个人想法、热门划线 | [`notes.md`](skills/notes.md) |
-| 阅读统计 | 阅读时长、天数、排行、偏好分析 | [`readdata.md`](skills/readdata.md) |
-| 书籍点评 | 公开点评浏览与筛选 | [`review.md`](skills/review.md) |
-| 推荐发现 | 个性化推荐、相似书推荐 | [`discover.md`](skills/discover.md) |
-
-## 版本
-
-当前版本：**1.0.3**
-
-每次请求自动携带版本号，服务端会通过 `upgrade_info` 字段通知升级。
-
-## 许可证
-
-[Apache-2.0](./LICENSE) — Copyright © 2026 Tencent
+这个仓库不是单一微信读书 skill 仓库，而是个人 Skills 总仓库。后续可以继续新增 Obsidian、Notebook、知识库迁移、视觉风格蒸馏等独立 skill。
