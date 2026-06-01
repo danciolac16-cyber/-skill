@@ -360,6 +360,142 @@ Benchmark comparison block:
 }
 ```
 
+### 1.7 Locked Output Formats
+
+Use locked formats so every book can be compared, audited, and upgraded consistently. Do not improvise a loose structure for book analysis unless the user explicitly asks for a different shape.
+
+First-step analysis format:
+
+````markdown
+## 读取自检
+- 本地文件：
+- 格式/大小：
+- 抽取结果：
+- 正文规模：
+- 图片/图表：
+- 乱码/OCR：
+- 微信读书：
+- 外部校验：
+- 旧版状态：
+
+## 完整阅读披露
+```json
+{
+  "Reading_Coverage_Disclosure": {}
+}
+```
+
+## 深度阅读轨迹
+```json
+{
+  "Deep_Reading_Trace": {}
+}
+```
+
+## 当前评级与预计评级
+```json
+{
+  "Distillation_Quality_Rating": {}
+}
+```
+
+## 这本书在知识库中的职责
+- 模块类型：
+- 主责能力：
+- 不负责什么：
+- 与相关书籍分工：
+
+## 建议蒸馏名
+`...`
+
+## 蒸馏蓝图
+```json
+{
+  "Distillation_Blueprint": {}
+}
+```
+
+## 准备蒸馏什么
+1. 模块名
+   - 触发条件：
+   - 输入字段：
+   - 控制参数：
+   - 工作流：
+   - 输出字段：
+   - 质检器：
+   - 修复规则：
+
+## 对智能体的补强
+- Before：
+- After：
+- 新增能力：
+- 可做到：
+- 不能可靠做到：
+
+## 可调用黑盒 JSON 草案
+```json
+{}
+```
+
+## 对标样例比较（如用户提供）
+```json
+{
+  "Benchmark_Comparison": {}
+}
+```
+
+## 归档建议
+- 是否建议进入正式蒸馏：
+- 预计 HTML/PDF 深度：
+- 是否替换旧版：
+- 临时索引如何更新：
+````
+
+Formal archive format:
+
+```markdown
+# 书名_AI知识库蒸馏版
+
+## 0. Source Audit And Reading Coverage
+## 1. Module Identity And Responsibility
+## 2. Invocation Rules / Trigger Conditions
+## 3. Required Inputs
+## 4. Control Parameters
+## 5. Core Methodology Converted To Workflow
+## 6. Executable Modules
+## 7. Output Schema
+## 8. Prompt Templates
+## 9. Quality Checker
+## 10. Negative Constraints
+## 11. Repair Rules
+## 12. Cross-Module Dispatch
+## 13. Agent Capability Delta
+## 14. Black-Box JSON
+## 15. Search Tags / Obsidian Links
+## 16. Final Rating And Usability Verdict
+```
+
+Post-generation final reply format:
+
+```markdown
+已完成正式蒸馏。
+
+- HTML：
+- PDF：
+- 旧版处理：
+- 索引更新：
+- 预计评级：
+- 实际评级：
+- 是否可供后期智能体调用：
+- 若评级变化，原因：
+```
+
+Hard rule:
+
+- If the first-step analysis does not follow the locked format, mark it as format-incomplete and repair it before asking the user to confirm.
+- If the formal archive does not contain the required archive sections, do not call it A-level.
+- The locked format may be expanded for special books, but the required sections must not be removed.
+
 ### 2. Knowledge-Base Role
 
 Classify what the book is responsible for inside the user's system.
