@@ -227,6 +227,60 @@ Pseudo-distillation signs:
 
 If two or more signs are present, mark `pseudo_distillation_risk` as `high`.
 
+### 1.5 Benchmark Sample And Granularity Gate
+
+When the user provides a Kimi, DeepSeek, Gemini, Claude, or other competing distillation sample, treat it as a **quality benchmark**, not as content to copy.
+
+Before proceeding to formal HTML/PDF generation, compare the planned output against the benchmark and state plainly:
+
+- What the benchmark does well.
+- What the current plan/output does better.
+- What the current plan/output is still weaker at.
+- Whether the current plan/output is **stronger than, equal to, or weaker than** the benchmark for the user's downstream agent knowledge base.
+- What must be added before it can beat or match the benchmark.
+
+If the current plan/output is weaker than the benchmark in agent usability, do not archive it as final. Upgrade the analysis or formal module first, unless the user explicitly asks to preserve it only as a temporary note.
+
+Minimum first-step granularity:
+
+Every first-step analysis for a readable full-text book must go beyond "planned modules" and include at least:
+
+- Core model or operating principle extracted from the book.
+- Trigger conditions: when the downstream agent should invoke this module.
+- Required inputs: what the agent must receive or ask the user for.
+- Output schema: what the agent should produce.
+- Control parameters: variables, sliders, taxonomies, states, or routing choices.
+- Workflow: the procedure the agent can run.
+- Quality checker: how to detect whether the method was actually used.
+- Negative constraints: what the agent must avoid.
+- Repair rules: how the agent should fix failed outputs.
+- Cross-module division of labor: how this book differs from related books already in the knowledge base.
+- Expected post-distillation grade and why that grade is defensible.
+
+If any of these are missing from the first-step analysis, the response may still be an audit, but it should not claim to be a strong distillation plan. Mark the weakness and repair it before formal generation.
+
+Full reading is necessary but not sufficient:
+
+- A complete text pass only proves source coverage.
+- It does not prove agent usability.
+- A-level requires converting the book into executable retrieval, generation, reverse-engineering, scoring, and repair behavior.
+- If the output remains a concept summary after full reading, cap the grade at **C or B** depending on structure.
+
+Benchmark comparison block:
+
+```json
+{
+  "Benchmark_Comparison": {
+    "benchmark_source": "Kimi | DeepSeek | Gemini | user sample | other",
+    "benchmark_strengths": [],
+    "our_current_strengths": [],
+    "our_current_weaknesses": [],
+    "agent_usability_verdict": "stronger | equal | weaker | not_comparable",
+    "required_repairs_before_archive": []
+  }
+}
+```
+
 ### 2. Knowledge-Base Role
 
 Classify what the book is responsible for inside the user's system.
