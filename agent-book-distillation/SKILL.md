@@ -40,17 +40,19 @@ In these cases, output an audit and recommendation first.
 
 For the user's current book-knowledge-base project, apply these defaults unless the user explicitly changes them:
 
-- Project root: `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱`.
-- Formal HTML output: `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱\html`.
-- Formal PDF output: `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱\PDF`.
-- Temporary indexes, extracted text, audits, and working notes must go under a clearly named separate folder such as `F:\鏅鸿兘浣撲功绫嶇煡璇嗗簱\涓存椂绱㈠紩_闃舵鏁寸悊`; do not put temporary work inside `PDF` or `html`.
+- Project root: `F:\智能体书籍知识库`.
+- Formal HTML output: `F:\智能体书籍知识库\html`.
+- Formal PDF output: `F:\智能体书籍知识库\PDF`.
+- Temporary indexes, extracted text, audits, and working notes must go under a clearly named separate folder such as `F:\智能体书籍知识库\临时索引_阶段整理`; do not put temporary work inside `PDF` or `html`.
 - Use this sequence for every book: WeRead lookup + local full-text extraction/read if provided + external verification, then output analysis first.
-- Do not generate HTML/PDF until the user confirms with wording such as `纭`, `纭畾`, or `鍙互`.
+- Do not generate HTML/PDF until the user confirms with wording such as `确认`, `确定`, or `可以`.
 - The pre-distillation analysis should match the user's preferred granular style: reading self-check, extraction scale, source reliability, suggested module name, differences from related modules, core distillation value, planned modules, agent empowerment, black-box JSON, knowledge-base placement, and the next archive/index count.
 - Distill methodology and reusable agent capability, not isolated plot details, character trivia, or decorative summaries.
 - Formal archived HTML/PDF files must be knowledge-base ready, not thin summary cards. After the user confirms, create a deep enough module for later retrieval: include source audit, module role, per-book/per-volume responsibility when relevant, methodology layers, routing matrices, parameter/control tables, direct-use prompt templates, black-box JSON, quality checks, negative constraints, related modules, and index placement. For preset/library books, include scene/style/preset routing tables and reverse-engineering tags instead of only high-level value statements. The analysis step may be concise, but the formal archive should carry the actionable substance.
 - For image-heavy books, audit the visual material instead of treating images as decoration. Distinguish scanned page images, merely attractive illustrations, and instructional diagrams that carry method. Sample representative pages or extracted images when possible, describe what the diagrams teach, and convert useful visual demonstrations into agent-readable rules such as composition, shot size, depth, lighting contrast, visual focus, staging, eye-line, and spatial hierarchy.
-- When this skill is improved and synced to GitHub, use a Chinese commit message that clearly states the enhancement area, such as `澧炲己锛氬浘鐗囧瀷涔︾睄瀹¤瑙勫垯` or `澧炲己锛氱‘璁ゅ墠涓嶇敓鎴愬綊妗ｇ殑娴佺▼瑙勫垯`, so future history shows what each revision changed.
+- For scanned PDFs, image-only PDFs, or PDFs with broken text layers, run an OCR feasibility check before claiming full-text reading. If local OCR is available, perform at least a representative OCR sample before the analysis, and prefer full-book OCR before rating a module as A. Never treat failed PDF text extraction as equivalent to reading the book.
+- Every pre-distillation analysis and formal archive must include a quality rating and usability verdict: current evidence grade, expected grade after formal distillation, whether the module is usable for the later agent knowledge base, whether it risks being pseudo-distillation, and what would be required to upgrade it.
+- When this skill is improved and synced to GitHub, use a Chinese commit message that clearly states the enhancement area, such as `增强：图片型书籍审计规则` or `增强：确认前不生成归档的流程规则`, so future history shows what each revision changed.
 
 ### 1. Source Audit
 
@@ -64,6 +66,7 @@ Produce a concise self-check before distillation:
 - External verification: official/publisher/catalog sources and what each confirms.
 - Existing distillation status: none, old version, upgraded version, duplicate risk.
 - For image-heavy books: page/image count, whether the file is scanned or born-digital, whether images are decorative or instructional, and what visual method can be extracted from representative samples.
+- For scanned or OCR-dependent books: OCR engine used, page range tested, OCR sample quality, failure modes, whether full-book OCR is needed before final A-level rating.
 
 Recommended table:
 
@@ -74,6 +77,66 @@ Recommended table:
 | WeRead | ... | Medium/Low | ... |
 | External sources | ... | Medium/Low | ... |
 ```
+
+### 1.1 Scanned / OCR Book Handling
+
+When local text extraction is poor, use this decision path:
+
+1. **Classify the file**: born-digital text PDF, scanned PDF, image-only PDF, OCR-damaged PDF, encrypted file, or mixed file.
+2. **Run a sample extraction**: extract raw text and inspect representative pages, not only file metadata.
+3. **Run OCR sample if needed**: use available local OCR on at least several representative pages: cover/metadata, table of contents, early chapter, middle chapter, late chapter, and one dense page.
+4. **State OCR quality plainly**: clean, usable with minor errors, usable but noisy, poor, or failed.
+5. **Decide the maximum defensible grade**:
+   - If OCR is absent or only a few pages are sampled, do not promise A.
+   - If full-book OCR is clean enough and formal distillation is deep, A is possible.
+   - If only external sources and partial samples are available, the module may be useful but should be marked as C/B at best depending on depth.
+
+OCR audit fields:
+
+```json
+{
+  "ocr_required": true,
+  "ocr_engine": "",
+  "page_range_tested": "",
+  "full_book_ocr_available": false,
+  "ocr_quality": "clean | usable_minor_errors | noisy_but_usable | poor | failed",
+  "max_defensible_grade": "A | B+ | B | C | D",
+  "reason": ""
+}
+```
+
+### 1.2 ABCD Quality And Usability Rating
+
+Every analysis and formal archive must include a rating block. The rating is not decorative; it tells the user whether the distillation can actually power downstream agents.
+
+Use this scale:
+
+| Grade | Meaning | Evidence Standard | Agent Usability |
+|---|---|---|---|
+| A | Final knowledge-base module | Full local text or clean full OCR; source audit is strong; methodology is deeply converted into schemas, routing, prompt templates, quality checks, negative constraints, and cross-module links | Can be directly used by downstream agents for retrieval, generation, reverse engineering, scoring, and repair |
+| B+ / A- | Strong stage module | Source is mostly readable, but has limitations such as scanned OCR noise, missing diagrams, or partial external reliance; formal archive is still deep and callable | Usable in production-like workflows, but should be upgraded if cleaner source appears |
+| B | Usable module | Core methods are captured and agent controls exist, but source coverage or structure is incomplete | Useful for retrieval and guidance, but not enough for high-confidence expert automation |
+| C | Direction card / medium summary | Some concepts and value are captured, but limited schemas, sparse quality checks, weak source evidence, or shallow formalization | Useful for human planning; risky as an autonomous agent module |
+| D | Thin summary / not final | Mostly high-level value statements, too short, little source evidence, no meaningful schemas or quality checks | Not recommended for final knowledge base; should be upgraded before agent use |
+
+Required rating output:
+
+```json
+{
+  "Distillation_Quality_Rating": {
+    "current_grade": "D | C | B | B+ / A- | A",
+    "expected_after_formal_distillation": "D | C | B | B+ / A- | A",
+    "usable_for_agent_kb": true,
+    "pseudo_distillation_risk": "low | medium | high",
+    "why": "",
+    "what_agent_can_do": [],
+    "what_agent_cannot_reliably_do_yet": [],
+    "upgrade_requirements": []
+  }
+}
+```
+
+If `usable_for_agent_kb` is false or `pseudo_distillation_risk` is high, pause before final archive unless the user explicitly asks to keep it as a temporary card.
 
 ### 2. Knowledge-Base Role
 
