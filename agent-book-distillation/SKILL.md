@@ -227,7 +227,86 @@ Pseudo-distillation signs:
 
 If two or more signs are present, mark `pseudo_distillation_risk` as `high`.
 
-### 1.5 Benchmark Sample And Granularity Gate
+### 1.5 Deep Reading Trace And Distillation Blueprint
+
+For any local full-text book, source extraction is not enough. The analysis must show a **deep reading trace** and a **distillation blueprint** before formal archive generation.
+
+Deep reading trace:
+
+- Record which full-text file was used and how it was processed.
+- Identify the book's structural units: volumes, chapters, sections, appendices, case groups, diagrams, tables, or recurring examples.
+- State that each major structural unit was processed, not merely searched by keyword.
+- Extract the book's repeated operating patterns: definitions, steps, diagnostic questions, examples, exceptions, and failure warnings.
+- If the book is multi-volume, confirm each volume was processed separately.
+- If the book is image-heavy, distinguish page scans, decorative images, and instructional diagrams before claiming deep reading.
+- If a unit was only sampled, mark the reading as incomplete and cap the expected grade.
+
+Required deep reading trace block:
+
+```json
+{
+  "Deep_Reading_Trace": {
+    "full_text_file_used": "",
+    "structural_units_detected": [],
+    "structural_units_processed": [],
+    "unit_processing_method": "full_pass | OCR_full_pass | sampled | external_only",
+    "recurring_patterns_extracted": [],
+    "unprocessed_units": [],
+    "deep_reading_claim": true,
+    "limitations": []
+  }
+}
+```
+
+Distillation blueprint:
+
+Before writing HTML/PDF, plan what will be built. This is not a decorative outline; it is the execution design for the future agent module.
+
+The blueprint must include:
+
+- Module responsibility: what this book owns inside the total knowledge base.
+- Capability target: what the agent will be able to do after ingestion.
+- Planned modules: each module's trigger, input, process, output, checker, and repair rule.
+- Control parameters: the variables that will become sliders, tags, schemas, or routing rules.
+- Cross-module dispatch: which existing books should be called before/after this module.
+- Archive scope: what will be included in the formal HTML/PDF and what will be intentionally excluded.
+- Expected final grade and the exact conditions required to reach it.
+
+Required blueprint block:
+
+```json
+{
+  "Distillation_Blueprint": {
+    "module_responsibility": "",
+    "capability_target": "",
+    "planned_executable_modules": [
+      {
+        "name": "",
+        "trigger": [],
+        "required_inputs": [],
+        "workflow": [],
+        "output_schema": {},
+        "quality_checker": [],
+        "repair_rules": []
+      }
+    ],
+    "control_parameters": {},
+    "cross_module_dispatch": [],
+    "archive_scope": [],
+    "excluded_scope": [],
+    "expected_final_grade": "",
+    "conditions_to_reach_grade": []
+  }
+}
+```
+
+Hard rule:
+
+- If there is no deep reading trace, do not claim "full-book distillation".
+- If there is no distillation blueprint, do not proceed to formal archive generation.
+- If the plan only says "蒸馏方向" but does not define trigger/input/workflow/output/checker/repair, mark it as planning-incomplete.
+
+### 1.6 Benchmark Sample And Granularity Gate
 
 When the user provides a Kimi, DeepSeek, Gemini, Claude, or other competing distillation sample, treat it as a **quality benchmark**, not as content to copy.
 
