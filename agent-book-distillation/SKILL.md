@@ -52,6 +52,8 @@ For the user's current book-knowledge-base project, apply these defaults unless 
 - For image-heavy books, audit the visual material instead of treating images as decoration. Distinguish scanned page images, merely attractive illustrations, and instructional diagrams that carry method. Sample representative pages or extracted images when possible, describe what the diagrams teach, and convert useful visual demonstrations into agent-readable rules such as composition, shot size, depth, lighting contrast, visual focus, staging, eye-line, and spatial hierarchy.
 - For scanned PDFs, image-only PDFs, or PDFs with broken text layers, run an OCR feasibility check before claiming full-text reading. If local OCR is available, perform at least a representative OCR sample before the analysis, and prefer full-book OCR before rating a module as A. Never treat failed PDF text extraction as equivalent to reading the book.
 - Every pre-distillation analysis and formal archive must include a quality rating and usability verdict: current evidence grade, expected grade after formal distillation, whether the module is usable for the later agent knowledge base, whether it risks being pseudo-distillation, and what would be required to upgrade it. In the first analysis response, state the expected post-distillation grade proactively; do not wait for the user to ask.
+- The first analysis response must include a **full-reading disclosure**: state whether the local main text was completely extracted/read for the analysis. If not complete, list exactly which parts were read or sampled, which parts were not read, why full reading was not possible or not yet performed, and how that limits the expected grade. This prevents concept-only or lazy distillation being mistaken for a full-book module.
+- After formal HTML/PDF generation, perform a **second-step self-check** before the final user response: verify output files, page/text extractability, index updates, replacement/deletion state, actual module depth, and final ABCD rating. Compare the final rating with the expected rating from the first analysis. If they differ, explain where the gap is, whether the archive is still usable, and what concrete repair is required.
 - When this skill is improved and synced to GitHub, use a Chinese commit message that clearly states the enhancement area, such as `增强：图片型书籍审计规则` or `增强：确认前不生成归档的流程规则`, so future history shows what each revision changed.
 
 ### 1. Source Audit
@@ -65,6 +67,7 @@ Produce a concise self-check before distillation:
 - WeRead lookup result: title/author/version found or not found.
 - External verification: official/publisher/catalog sources and what each confirms.
 - Existing distillation status: none, old version, upgraded version, duplicate risk.
+- Full-reading disclosure: whether the whole main text was extracted/read; if not, list read scope, unread scope, reason, and grade limitation.
 - For image-heavy books: page/image count, whether the file is scanned or born-digital, whether images are decorative or instructional, and what visual method can be extracted from representative samples.
 - For scanned or OCR-dependent books: OCR engine used, page range tested, OCR sample quality, failure modes, whether full-book OCR is needed before final A-level rating.
 
@@ -137,6 +140,47 @@ Required rating output:
 ```
 
 If `usable_for_agent_kb` is false or `pseudo_distillation_risk` is high, pause before final archive unless the user explicitly asks to keep it as a temporary card.
+
+### 1.3 Full-Reading Disclosure And Second-Step Self-Check
+
+The user's knowledge base is meant for downstream autonomous agents, so every book must distinguish between:
+
+- **analysis-ready reading**: enough extracted text and source verification to propose a distillation direction;
+- **formal full-book distillation**: enough full-text coverage and module depth to become a callable external knowledge module.
+
+Required first-step disclosure:
+
+```json
+{
+  "Reading_Coverage_Disclosure": {
+    "local_main_text_fully_extracted": true,
+    "local_main_text_fully_read_for_this_analysis": true,
+    "read_scope": [],
+    "unread_or_sampled_scope": [],
+    "reason_if_not_full": "",
+    "impact_on_expected_grade": ""
+  }
+}
+```
+
+Required post-generation self-check:
+
+```json
+{
+  "Post_Generation_Self_Check": {
+    "html_created": true,
+    "pdf_created": true,
+    "pdf_text_extractable": true,
+    "index_updated": true,
+    "old_version_replaced_or_retained_correctly": true,
+    "expected_grade_from_analysis": "A- / A",
+    "actual_final_grade": "A- / A",
+    "grade_changed": false,
+    "if_changed_reason": "",
+    "repair_required": []
+  }
+}
+```
 
 ### 2. Knowledge-Base Role
 
