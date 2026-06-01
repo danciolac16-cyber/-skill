@@ -145,7 +145,7 @@ If `usable_for_agent_kb` is false or `pseudo_distillation_risk` is high, pause b
 
 The user's knowledge base is meant for downstream autonomous agents, so every book must distinguish between:
 
-- **analysis-ready reading**: enough extracted text and source verification to propose a distillation direction;
+- **analysis-ready reading**: when a readable local full text is available, the first analysis must be based on a complete pass over the extracted main text, not only a table of contents or keyword samples. If the full text is too large, damaged, encrypted, or otherwise impossible to process in full during the current step, say so plainly and cap the expected grade until a full pass is completed;
 - **formal full-book distillation**: enough full-text coverage and module depth to become a callable external knowledge module.
 
 Required first-step disclosure:
