@@ -49,10 +49,12 @@ For the user's current book-knowledge-base project, apply these defaults unless 
 - The pre-distillation analysis should match the user's preferred granular style: reading self-check, extraction scale, source reliability, suggested module name, differences from related modules, core distillation value, planned modules, agent empowerment, black-box JSON, knowledge-base placement, and the next archive/index count.
 - Distill methodology and reusable agent capability, not isolated plot details, character trivia, or decorative summaries.
 - Formal archived HTML/PDF files must be knowledge-base ready, not thin summary cards. After the user confirms, create a deep enough module for later retrieval: include source audit, module role, per-book/per-volume responsibility when relevant, methodology layers, routing matrices, parameter/control tables, direct-use prompt templates, black-box JSON, quality checks, negative constraints, related modules, and index placement. For preset/library books, include scene/style/preset routing tables and reverse-engineering tags instead of only high-level value statements. The analysis step may be concise, but the formal archive should carry the actionable substance.
+- Treat **agent-executable structure** as mandatory, not optional. A formal archive must enable an agent to decide when to invoke the module, what inputs to request, what parameters to set, what workflow to run, what output schema to produce, how to score the result, and how to repair failures. A conceptual summary, even if accurate, is not enough for A-level distillation.
 - For image-heavy books, audit the visual material instead of treating images as decoration. Distinguish scanned page images, merely attractive illustrations, and instructional diagrams that carry method. Sample representative pages or extracted images when possible, describe what the diagrams teach, and convert useful visual demonstrations into agent-readable rules such as composition, shot size, depth, lighting contrast, visual focus, staging, eye-line, and spatial hierarchy.
 - For scanned PDFs, image-only PDFs, or PDFs with broken text layers, run an OCR feasibility check before claiming full-text reading. If local OCR is available, perform at least a representative OCR sample before the analysis, and prefer full-book OCR before rating a module as A. Never treat failed PDF text extraction as equivalent to reading the book.
 - Every pre-distillation analysis and formal archive must include a quality rating and usability verdict: current evidence grade, expected grade after formal distillation, whether the module is usable for the later agent knowledge base, whether it risks being pseudo-distillation, and what would be required to upgrade it. In the first analysis response, state the expected post-distillation grade proactively; do not wait for the user to ask.
 - The first analysis response must include a **full-reading disclosure**: state whether the local main text was completely extracted/read for the analysis. If not complete, list exactly which parts were read or sampled, which parts were not read, why full reading was not possible or not yet performed, and how that limits the expected grade. This prevents concept-only or lazy distillation being mistaken for a full-book module.
+- The full-reading disclosure must be internally consistent. If `local_main_text_fully_read_for_this_analysis` is `true`, then `unread_or_sampled_scope` must be empty. If any chapter, volume, appendix, or major case section remains unread or only sampled, set it to `false` and cap the expected grade below A until the missing coverage is completed.
 - After formal HTML/PDF generation, perform a **second-step self-check** before the final user response: verify output files, page/text extractability, index updates, replacement/deletion state, actual module depth, and final ABCD rating. Compare the final rating with the expected rating from the first analysis. If they differ, explain where the gap is, whether the archive is still usable, and what concrete repair is required.
 - When this skill is improved and synced to GitHub, use a Chinese commit message that clearly states the enhancement area, such as `增强：图片型书籍审计规则` or `增强：确认前不生成归档的流程规则`, so future history shows what each revision changed.
 
@@ -141,6 +143,13 @@ Required rating output:
 
 If `usable_for_agent_kb` is false or `pseudo_distillation_risk` is high, pause before final archive unless the user explicitly asks to keep it as a temporary card.
 
+Hard caps:
+
+- If readable local full text exists but was not fully processed, maximum expected grade is **B+ / A-** and A is forbidden.
+- If the output lacks trigger conditions, input/output schema, prompt template, and quality checker, maximum final grade is **B** even if the summary is accurate.
+- If the output is mostly "core value" and "AI transformation direction" without executable routing, scoring, or repair rules, maximum final grade is **C**.
+- If the output is underdeveloped enough that an agent can only read it but cannot act from it, grade it **D or C**, not A.
+
 ### 1.3 Full-Reading Disclosure And Second-Step Self-Check
 
 The user's knowledge base is meant for downstream autonomous agents, so every book must distinguish between:
@@ -163,6 +172,12 @@ Required first-step disclosure:
 }
 ```
 
+Consistency rule:
+
+- `local_main_text_fully_read_for_this_analysis = true` requires `unread_or_sampled_scope = []`.
+- If `unread_or_sampled_scope` is non-empty, set `local_main_text_fully_read_for_this_analysis = false` and explicitly downgrade/cap the expected grade.
+- Do not hide unread case sections behind "repetitive structure"; if those cases are part of the user's requested knowledge base, they must be counted as unread until processed.
+
 Required post-generation self-check:
 
 ```json
@@ -181,6 +196,36 @@ Required post-generation self-check:
   }
 }
 ```
+
+### 1.4 Anti-Pseudo-Distillation Gate
+
+Before calling any archive final, test it against this gate.
+
+Required executable layers:
+
+| Layer | Required content | Failure cap |
+|---|---|---|
+| Invocation | Trigger conditions / use-when rules | Max B |
+| Inputs | What the downstream agent must receive or ask for | Max B |
+| Controls | Parameters, sliders, taxonomies, routing choices, or state variables | Max B |
+| Workflow | Step-by-step procedure the agent can run | Max B |
+| Output Schema | JSON/table fields the agent should produce | Max B |
+| Prompt Template | Direct reusable prompt or system fragment | Max B |
+| Quality Checker | Pass/fail checks, score rubric, or error detector | Max B |
+| Negative Constraints | What the agent must not do | Max B+ / A- |
+| Repair Rules | How to fix failed outputs | Max B+ / A- |
+| Cross-links | Related modules and dispatch order | Max A- |
+
+Pseudo-distillation signs:
+
+- It only summarizes concepts.
+- It says "AI transformation" but gives no callable fields.
+- It lists book chapters but does not convert them into controls or checks.
+- It has no trigger conditions.
+- It has no scoring or repair layer.
+- It cannot answer "what should the agent do next?"
+
+If two or more signs are present, mark `pseudo_distillation_risk` as `high`.
 
 ### 2. Knowledge-Base Role
 
@@ -296,6 +341,25 @@ Use this base schema and adapt only where needed:
   }
 }
 ```
+
+At minimum, every formal archive should expose these retrieval/execution blocks somewhere in the HTML/PDF:
+
+```json
+{
+  "trigger_conditions": [],
+  "required_inputs": {},
+  "control_parameters": {},
+  "workflow": [],
+  "output_schema": {},
+  "prompt_templates": [],
+  "quality_checks": [],
+  "negative_constraints": [],
+  "repair_rules": [],
+  "cross_module_links": []
+}
+```
+
+If a book's domain makes one block inapplicable, explain why and replace it with the nearest equivalent. Do not omit silently.
 
 ### 6. Prompt And Output Templates
 
