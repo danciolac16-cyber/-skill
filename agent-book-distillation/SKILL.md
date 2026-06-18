@@ -496,6 +496,112 @@ Hard rule:
 - If the formal archive does not contain the required archive sections, do not call it A-level.
 - The locked format may be expanded for special books, but the required sections must not be removed.
 
+### 1.8 External Model Collaboration Gate
+
+The user may use Kimi, DeepSeek, Gemini, Claude, or another model to perform long-text reading and first-pass distillation. Treat external model output as a **draft supplier and benchmark**, not as verified truth.
+
+Recommended division of labor:
+
+- External model, especially Kimi: long-text reading, chapter-by-chapter notes, examples, first-pass module extraction, language polishing.
+- This agent: source audit, coverage verification, anti-pseudo-distillation checks, schema conversion, executable module design, HTML/PDF generation, index update, old-version replacement, and final ABCD rating.
+
+External handoff package required from the user:
+
+```json
+{
+  "External_Model_Handoff": {
+    "model_name": "",
+    "source_file_claimed": "",
+    "prompt_or_task_used": "",
+    "claimed_reading_scope": [],
+    "chapter_or_unit_notes": [],
+    "proposed_modules": [],
+    "control_parameters": {},
+    "quality_checkers": [],
+    "repair_rules": [],
+    "quotes_or_evidence": [],
+    "known_limitations": []
+  }
+}
+```
+
+Gatekeeping rules:
+
+- Never accept external output as proof of full reading by itself.
+- Verify the external claims against local files, extraction audit, chapter list, keyword distribution, and structural coverage.
+- If the external model gives strong content but weak evidence, keep the content as draft material and mark evidence as unverified.
+- If external output conflicts with the local text, local text wins.
+- If external output is richer than this agent's first analysis, use it as a granularity benchmark and upgrade the plan.
+- If external output lacks trigger/input/workflow/output/checker/repair, it is not executable enough for formal archive.
+- The final archive must state whether external model material was used and how it was checked.
+
+External comparison block:
+
+```json
+{
+  "External_Model_Gatekeeping_Report": {
+    "external_model_used": true,
+    "accepted_as": "draft | benchmark | rejected | partial",
+    "verified_against_local_text": true,
+    "coverage_match": "full | partial | unclear | conflict",
+    "useful_contributions": [],
+    "rejected_or_repaired_claims": [],
+    "remaining_risks": [],
+    "gatekeeper_verdict": ""
+  }
+}
+```
+
+### 1.9 Original-Book Evidence And Modern-Adaptation Layers
+
+Keep old-book modernization useful without contaminating attribution. A model's awareness of the current date does not prove which rules came from the book, which were added later, or which channels they fit.
+
+Activate provenance layering when any of these apply:
+
+- The book's medium, software, channel, technology, or operating context is dated.
+- The method is being adapted to short video, ecommerce, social media, AIGC, current software, or current platform rules.
+- An external model added modern knowledge absent from the local text.
+- Current compliance, platform, technical, or ethical constraints modify the historical method.
+- Local pages are missing, damaged, unread, sampled, or supplemented externally.
+- The archive combines book-derived methodology with Codex engineering extensions.
+
+Use these layers:
+
+- `original_book`: locally verified book content.
+- `modern_supplement`: current adaptation; never attribute it to the book.
+- `related_module`: knowledge owned by another archived module; route to it instead of duplicating it.
+- `unverified_external`: plausible external/model material without sufficient local evidence; exclude it from autonomous execution.
+- `unavailable_source`: content hidden by missing pages, damaged images, unread scope, or failed OCR; never fill it silently from general knowledge.
+
+Attach provenance to important rules, lists, controls, prompts, and schema fields:
+
+```json
+{
+  "knowledge_layer": "original_book | modern_supplement | related_module | unverified_external | unavailable_source",
+  "source_status": "verified_local | partial_local | external_verified | unavailable",
+  "attributed_to_book": true,
+  "applicable_period": "original_context | current",
+  "applicable_channels": [],
+  "requires_current_validation": false
+}
+```
+
+Rules:
+
+- Preserve dated original wording or categories when they are methodologically meaningful. Add a modern interpretation beside them; do not replace them because they look old-fashioned.
+- Put modern hooks, platform terminology, software controls, CTA patterns, A/B testing, and current compliance rules in `modern_supplement` unless the local book explicitly contains them.
+- Prefer cross-module dispatch when an existing module already owns the modern capability.
+- Never use modern supplements to hide missing pages, unread scope, OCR limits, or weak source evidence.
+- When the modern rule conflicts with the book, state both scopes and routing conditions; never silently overwrite the book.
+- Add provenance-confusion checks to the Quality Checker: wrong attribution, period mismatch, channel mismatch, and supplement presented as book content.
+- Do not require layering when the archive contains only verified book methodology, when wording changes preserve the same rule and attribution, or when modern behavior is fully delegated to another module.
+
+Rating:
+
+- Score original-book fidelity separately from modern executability.
+- Strong modern adaptation cannot raise the evidence grade of incomplete book coverage.
+- Unmarked source mixing, wholesale list replacement, or false attribution forbids A. If it can contaminate autonomous execution, cap the module at B until repaired.
+
 ### 2. Knowledge-Base Role
 
 Classify what the book is responsible for inside the user's system.
@@ -624,7 +730,8 @@ At minimum, every formal archive should expose these retrieval/execution blocks 
   "quality_checks": [],
   "negative_constraints": [],
   "repair_rules": [],
-  "cross_module_links": []
+  "cross_module_links": [],
+  "knowledge_provenance": []
 }
 ```
 
