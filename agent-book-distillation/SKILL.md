@@ -1,6 +1,6 @@
 ---
 name: agent-book-distillation
-description: Use when distilling books into an AI-agent knowledge base module with three-source verification, full-text extraction checks, core methodology, agent capability gains, JSON/search layers, prompt templates, quality checks, and Obsidian/Notebook-ready knowledge links.
+description: Use when distilling books into an AI-agent knowledge base module, especially for AIGC video production such as AI shorts, film, novel adaptation, advertising, concept films, and short video. Covers source verification, executable schemas, video-production controls, prompt hooks, quality checks, repair rules, and legacy-module reinforcement.
 metadata:
   short-description: Distill books into agent-ready knowledge modules
 ---
@@ -10,6 +10,8 @@ metadata:
 Use this skill when the user provides or references a book and wants it turned into a reusable AI-agent knowledge module rather than a normal summary.
 
 The goal is not "what the book says." The goal is: **what new capability this book gives the user's agents, how that capability is invoked, and how it should be stored for retrieval in an external knowledge base.**
+
+For this project, the downstream system is an **AIGC video-production agent stack**. A module is not complete merely because a general agent can read or discuss it. It must state whether and how it improves development, writing, preproduction, generation, postproduction, distribution, or quality control.
 
 ## Core Principle
 
@@ -50,6 +52,10 @@ For the user's current book-knowledge-base project, apply these defaults unless 
 - Distill methodology and reusable agent capability, not isolated plot details, character trivia, or decorative summaries.
 - Formal archived HTML/PDF files must be knowledge-base ready, not thin summary cards. After the user confirms, create a deep enough module for later retrieval: include source audit, module role, per-book/per-volume responsibility when relevant, methodology layers, routing matrices, parameter/control tables, direct-use prompt templates, black-box JSON, quality checks, negative constraints, related modules, and index placement. For preset/library books, include scene/style/preset routing tables and reverse-engineering tags instead of only high-level value statements. The analysis step may be concise, but the formal archive should carry the actionable substance.
 - Treat **agent-executable structure** as mandatory, not optional. A formal archive must enable an agent to decide when to invoke the module, what inputs to request, what parameters to set, what workflow to run, what output schema to produce, how to score the result, and how to repair failures. A conceptual summary, even if accurate, is not enough for A-level distillation.
+- Treat the **AIGC video-production interface** as mandatory for modules that directly or indirectly support AI shorts, film, novel adaptation, advertising, concept films, trailers, brand content, or short video. State production stages, content types, upstream inputs, observable audiovisual controls, downstream handoff, prompt hooks, video checks, and repair rules.
+- Do not use the phrase "usable for AI video" as evidence by itself. Convert the book into concrete decisions such as scene function, character state, performance action, shot size, camera, blocking, continuity, production design, lighting, color, sound, editing, brand intent, or distribution versioning, according to the book's actual responsibility.
+- Do not force every book to control every production stage. Mark indirect theoretical or research modules as upstream decision/diagnostic modules and route production work to specialist modules.
+- For multi-shot generation, require continuity controls for the dimensions owned by the module: character, costume, prop, space, screen direction, eye-line, action state, light direction, color state, time, weather, sound perspective, or brand behavior.
 - For image-heavy books, audit the visual material instead of treating images as decoration. Distinguish scanned page images, merely attractive illustrations, and instructional diagrams that carry method. Sample representative pages or extracted images when possible, describe what the diagrams teach, and convert useful visual demonstrations into agent-readable rules such as composition, shot size, depth, lighting contrast, visual focus, staging, eye-line, and spatial hierarchy.
 - For scanned PDFs, image-only PDFs, or PDFs with broken text layers, run an OCR feasibility check before claiming full-text reading. If local OCR is available, perform at least a representative OCR sample before the analysis, and prefer full-book OCR before rating a module as A. Never treat failed PDF text extraction as equivalent to reading the book.
 - Every pre-distillation analysis and formal archive must include a quality rating and usability verdict: current evidence grade, expected grade after formal distillation, whether the module is usable for the later agent knowledge base, whether it risks being pseudo-distillation, and what would be required to upgrade it. In the first analysis response, state the expected post-distillation grade proactively; do not wait for the user to ask.
@@ -149,6 +155,7 @@ Hard caps:
 - If the output lacks trigger conditions, input/output schema, prompt template, and quality checker, maximum final grade is **B** even if the summary is accurate.
 - If the output is mostly "core value" and "AI transformation direction" without executable routing, scoring, or repair rules, maximum final grade is **C**.
 - If the output is underdeveloped enough that an agent can only read it but cannot act from it, grade it **D or C**, not A.
+- If a module is relevant to this project's AIGC video pipeline but lacks a concrete video-production interface, cap the final grade at **B+ / A-**. If it cannot hand off any structured production decision, cap it at **B**.
 
 ### 1.3 Full-Reading Disclosure And Second-Step Self-Check
 
@@ -473,6 +480,8 @@ Formal archive format:
 ## 14. Black-Box JSON
 ## 15. Search Tags / Obsidian Links
 ## 16. Final Rating And Usability Verdict
+## 17. AIGC Video Production Interface
+## 18. Video Quality, Continuity And Repair
 ```
 
 Post-generation final reply format:
@@ -601,6 +610,134 @@ Rating:
 - Score original-book fidelity separately from modern executability.
 - Strong modern adaptation cannot raise the evidence grade of incomplete book coverage.
 - Unmarked source mixing, wholesale list replacement, or false attribution forbids A. If it can contaminate autonomous execution, cap the module at B until repaired.
+
+### 1.9.1 Creative Risk Gates Are Not Blanket Bans
+
+For film, horror, crime, war, psychological, historical-trauma, domestic-violence, child-fear, gender-oppression, colonial-history, body-horror, or other art-making modules, do not treat `Gate`, `Safety Gate`, `Blocker`, or `Constraint` as automatic removal or artistic sanitization.
+
+Default meaning: **route and control, not blanket ban**.
+
+Use gates to:
+
+- separate source layers: original book evidence, film case evidence, external-model draft, modern AIGC translation, current safety/copyright/ethics constraints;
+- route work to the right creative module: writing, performance, camera, sound, editing, production design, historical context, adaptation boundary, or safety QC;
+- control intensity: keep darkness, conflict, violence, oppression, fear, discomfort, and moral ugliness when they serve the work, but specify view, distance, explicitness, offscreen/aftermath/symbolic treatment, and narrative function;
+- extract method instead of copying: learn the cinematic function rather than reproducing exact frames, actor likenesses, book images, concrete music tracks, or protected compositions;
+- repair cheap outputs: if AIGC collapses into gore, ghost faces, shock, trauma decoration, or conspiracy-as-fact, repair toward stronger story, space, performance, sound, history, and theme.
+
+Rules:
+
+1. Dark content, violent conflict, horror devices, oppressive relationships, and moral discomfort are not grading penalties by themselves. If local evidence supports them and they serve story, character, space, sound, history, or aesthetics, preserve them as executable creative controls.
+2. Use hard blocking only for unauthorized recognizable real-person likeness, exact protected frame/image/music copying, sensationalized child or vulnerable-subject victimization, operational harm instructions, decorative use of real trauma, conspiracy theory presented as fact, or modern supplements falsely attributed to the book.
+3. Preserve style calls when the user asks for them. Convert director/type/era/film style names into observable parameters: shot duration, camera height, movement, composition, material, sound function, editing rhythm, performance intensity, and spatial relation. Do not delete a useful style call merely because it has risk.
+4. Prefer fields such as `allowed_use`, `representation_mode`, `intensity_control`, `narrative_function`, and `repair_rule` over a flat `blocked` label.
+5. Separate artistic negative constraints from safety/copyright/source constraints. "Do not make it cheap jump scare" is a quality constraint; "do not recreate a specific actor's face" is a likeness/copyright constraint.
+6. In formal archives, prefer gate names like `Router`, `Intensity Control`, `Representation Mode`, `Context Gate`, or `Style Call Gate` when the intent is controlled use rather than prohibition.
+
+Recommended field:
+
+```json
+{
+  "creative_risk_gate": {
+    "default_policy": "route_and_control_not_blanket_ban",
+    "allowed_use": [],
+    "representation_mode": "direct | restrained | implied | offscreen | aftermath | symbolic | blocked",
+    "intensity_level": "low | medium | high | extreme_blocked",
+    "narrative_function": "",
+    "source_layer": "original_book | case_derived_transfer | modern_supplement | safety_constraint",
+    "must_not_degrade_into": [],
+    "repair_rule": ""
+  }
+}
+```
+
+### 1.10 AIGC Video Production Interface
+
+Every analysis and formal archive must classify the module's relationship to AIGC video:
+
+```json
+{
+  "AIGC_Video_Production_Interface": {
+    "aigc_video_role": "core | support | reference | not_directly_applicable",
+    "production_stages": [
+      "development | writing | preproduction | generation | postproduction | distribution | quality_control"
+    ],
+    "supported_content_types": [
+      "ai_short_drama | film | novel_adaptation | advertisement | concept_film | trailer | brand_content | short_video"
+    ],
+    "upstream_inputs": [],
+    "video_control_parameters": {},
+    "structured_handoff": {},
+    "downstream_modules": [],
+    "generation_prompt_hooks": [],
+    "video_quality_checks": [],
+    "video_repair_rules": [],
+    "cross_shot_consistency_rules": []
+  }
+}
+```
+
+Map the book only to controls it genuinely owns:
+
+| Book responsibility | Video-production conversion |
+|---|---|
+| Narrative / screenwriting | scene goal, conflict, beat, reveal, character state, scene entry/exit, adaptation constraint |
+| Character / dialogue / acting | objective, subtext, action verb, emotional turn, performance intensity, voice, eye-line, reaction |
+| Directing / camera | shot size, camera position, lens intent, movement, blocking, axis, eye-line, spatial continuity |
+| Production design / worldbuilding / style | set assets, architecture, material, costume, prop, period, culture, weather, motif, forbidden elements |
+| Lighting / color | motivated source, direction, softness, contrast, exposure, color temperature, palette relationship, shot matching |
+| Editing / sound | cut point, duration, rhythm, transition, sound point of view, ambience, music function, audiovisual relationship |
+| Advertising / brand | audience, desire, brand persona, communication goal, audiovisual hook, proof, CTA, channel version |
+| Novel / literature | adaptable scene unit, relationship state, point of view, key image, world rule, protected source boundary |
+| Theory / research | decision lens, diagnostic questions, evidence requirement, bias check, applicable and excluded conditions |
+
+Rules:
+
+- A prompt is an interface, not proof of capability. Also provide structured output, checks, and repairs.
+- Translate abstract style words into observable properties. Reject adjective-only prompt lists.
+- Separate `original_book` methodology from Codex's video conversion and current model/platform controls.
+- Include a `structured_handoff` that a downstream script, storyboard, image, video, sound, editing, or QC agent can consume.
+- For indirect books, specify the upstream decision or constraint and the specialist module that performs production.
+- Add video-specific checks to the Quality Checker.
+- Add repair routing to writing, storyboard, generation prompt, asset bible, continuity state, editing, sound, color, or distribution as applicable.
+
+### 1.11 Legacy Module Video Reinforcement
+
+After the main book backlog is distilled, audit existing formal modules for missing AIGC video interfaces. Do not automatically re-distill every book.
+
+Use these levels:
+
+- `V0_no_interface`: summary/general-agent module; no video handoff.
+- `V1_routable`: production stage and downstream routing exist, but controls are vague.
+- `V2_executable`: inputs, controls, structured handoff, prompt hooks, checks, and repairs exist.
+- `V3_production_ready`: adds cross-shot consistency, SOP dispatch, failure routing, and verifiable delivery.
+
+Workflow:
+
+1. Scan formal HTML/PDF, Manifest, replacement records, and rating tables.
+2. Record module name, source grade, current video level, missing interface fields, domain, priority, and related modules.
+3. Prefer incremental reinforcement when source audit and core methodology are already sound.
+4. Re-distill only when the existing module is thin, factually unreliable, missing source coverage, or cannot support the required interface.
+5. Reinforce by domain batches: narrative; character/dialogue; directing/camera; production design/style; lighting/color; editing/sound; advertising/brand; novel adaptation.
+6. Preserve one primary module entry. Update the existing archive and Manifest instead of creating parallel untracked main versions.
+7. Keep source fidelity grade separate from `video_production_level`; modern video adaptation cannot raise book-evidence quality.
+8. Require a reinforcement queue and post-update self-check.
+
+Minimum reinforcement record:
+
+```json
+{
+  "module_title": "",
+  "source_grade": "",
+  "video_production_level_before": "V0 | V1 | V2 | V3",
+  "missing_video_fields": [],
+  "reinforcement_mode": "incremental | partial_redistill | full_redistill",
+  "priority": "P0 | P1 | P2",
+  "video_production_level_after": "",
+  "manifest_updated": false,
+  "status": "pending | completed | blocked"
+}
+```
 
 ### 2. Knowledge-Base Role
 
@@ -731,7 +868,10 @@ At minimum, every formal archive should expose these retrieval/execution blocks 
   "negative_constraints": [],
   "repair_rules": [],
   "cross_module_links": [],
-  "knowledge_provenance": []
+  "knowledge_provenance": [],
+  "aigc_video_production_interface": {},
+  "video_quality_checks": [],
+  "cross_shot_consistency_rules": []
 }
 ```
 
