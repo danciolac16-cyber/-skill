@@ -537,12 +537,76 @@ External handoff package required from the user:
 Gatekeeping rules:
 
 - Never accept external output as proof of full reading by itself.
-- Verify the external claims against local files, extraction audit, chapter list, keyword distribution, and structural coverage.
+- Verify the external claims against local files, extraction audit, chapter list, keyword distribution, structural coverage, and a complete local reading pass when the source is readable.
 - If the external model gives strong content but weak evidence, keep the content as draft material and mark evidence as unverified.
 - If external output conflicts with the local text, local text wins.
 - If external output is richer than this agent's first analysis, use it as a granularity benchmark and upgrade the plan.
 - If external output lacks trigger/input/workflow/output/checker/repair, it is not executable enough for formal archive.
 - The final archive must state whether external model material was used and how it was checked.
+
+### 1.8.1 Codex Gatekeeping Requires Bidirectional Full-Text Comparison
+
+For this user's AIGC book-knowledge-base project, **Codex gatekeeping is not a light pre-check**. If the user asks Codex to 守门 an external model draft, the minimum standard is:
+
+1. Codex must read/process the local source itself, not merely inspect metadata, table of contents, keyword hits, or the external model's self-report.
+2. Codex must compare the external draft against the local source in both directions:
+   - **source-to-draft**: important chapters, sections, images, examples, claims, concepts, warnings, and methods in the local source that the draft omitted or weakened;
+   - **draft-to-source**: claims, examples, visual descriptions, modern additions, prompt hooks, ratings, and rules in the draft that are unsupported, misattributed, overgeneralized, or contradicted by the local source.
+3. For image-heavy books, Codex must inspect the visual material itself when possible: page thumbnails, extracted images, or rendered representative pages. If images are numerous, use a systematic page/image audit and state the coverage. Do not accept another model's image count or image interpretation as proof.
+4. The gatekeeping report must include a **Bidirectional_Gatekeeping_Matrix** before it can be called final.
+5. If Codex has only done file verification, extraction statistics, keyword distribution, contact sheets, or structural inspection, label the result as `pre_gate_audit`, `initial_guard_review`, or `守门预审`, not final 守门.
+6. A module cannot be rated A or moved to formal archive on the basis of external-model draft quality unless this bidirectional comparison is complete or the limitations are explicitly disclosed and the grade is capped below A.
+7. Do not use "Kimi says it read the whole book" or "the draft looks detailed" as a substitute for Codex's own source pass. Detail can be hallucinated; only local evidence and bidirectional comparison distinguish true from false.
+
+Required block:
+
+```json
+{
+  "Bidirectional_Gatekeeping_Matrix": {
+    "codex_local_source_pass_completed": true,
+    "source_units_checked": [],
+    "source_to_draft_omissions": [
+      {
+        "source_unit": "",
+        "local_evidence": "",
+        "draft_gap": "",
+        "severity": "minor | moderate | major | fatal",
+        "repair_action": ""
+      }
+    ],
+    "draft_to_source_unsupported_claims": [
+      {
+        "draft_claim": "",
+        "local_evidence_status": "verified | partial | unsupported | contradicted",
+        "source_location_or_audit_note": "",
+        "severity": "minor | moderate | major | fatal",
+        "repair_action": ""
+      }
+    ],
+    "image_or_diagram_cross_check": {
+      "required": false,
+      "coverage": "",
+      "unsupported_visual_claims": [],
+      "usable_visual_rules": []
+    },
+    "modern_layer_cross_check": {
+      "modern_items_in_draft": [],
+      "correctly_layered": [],
+      "misattributed_to_book": [],
+      "repair_action": []
+    },
+    "final_gatekeeping_status": "pre_gate_audit | final_gate_pass | final_gate_repair_required | return_to_external_model",
+    "grade_cap_if_incomplete": ""
+  }
+}
+```
+
+Hard caps:
+
+- If the local source is readable but Codex has not completed its own source pass, maximum status is `pre_gate_audit`; do not call it final 守门.
+- If the bidirectional matrix is absent, maximum grade is **B+ / A-**, and formal archive must pause unless the user explicitly accepts a temporary non-final module.
+- If multiple major unsupported draft claims are found, cap at **B** until repaired.
+- If the draft attributes modern supplements, external knowledge, or invented examples to the book, A is forbidden until provenance is repaired.
 
 External comparison block:
 
