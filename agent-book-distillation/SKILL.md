@@ -238,6 +238,67 @@ Use these final statuses:
 
 Only say a batch is fully aligned when all scoped modules are accounted for, no `machine_aligned_or_thin` modules remain, no P0/P1/P2 issues remain, file and index gaps are zero, modern adaptation does not contaminate original-book evidence, and the AIGC interface level matches each module's role.
 
+Standard version and repair schemas:
+
+For formal archives, gatekeeping reports, reinforcement sidecars, and batch audits, include machine-readable version and issue fields when practical.
+
+```json
+{
+  "standard_version": {
+    "agent_md_commit": "",
+    "skill_commit": "",
+    "ruleset_name": "agent_book_distillation",
+    "ruleset_version_label": "",
+    "generated_under_rules_date": "",
+    "requires_reaudit_if_rules_after": []
+  }
+}
+```
+
+Use this gatekeeping report shape when reviewing external drafts:
+
+```json
+{
+  "Codex_Gatekeeping_Report": {
+    "module_name": "",
+    "source_files_checked": [],
+    "external_draft_checked": "",
+    "local_source_pass_completed": false,
+    "bidirectional_matrix_completed": false,
+    "image_audit_completed": "yes | no | not_applicable | partial",
+    "reading_coverage_basis": "",
+    "current_grade": "",
+    "max_grade_after_repair": "",
+    "verdict": "archive_ready | codex_reinforce | return_to_kimi | source_missing | pre_gate_only",
+    "blocking_issues": [],
+    "repair_actions": [],
+    "positive_flywheel_candidate": false,
+    "standard_version": {}
+  }
+}
+```
+
+Use this issue shape for repair queues and P0/P1/P2 audit tables:
+
+```json
+{
+  "repair_issue": {
+    "module_name": "",
+    "severity": "P0 | P1 | P2",
+    "category": "source_chain | gatekeeping | index | aigc_interface | modern_layer | density | style_gate | file_output | versioning",
+    "issue": "",
+    "evidence": "",
+    "required_fix": "",
+    "owner": "Codex | Kimi | user | external_source",
+    "status": "open | fixed | deferred | wont_fix",
+    "verification_method": "",
+    "standard_version": {}
+  }
+}
+```
+
+Do not use these fields as decoration. If a value is unknown, leave it blank and state the evidence gap. Standard version fields document which rules were used; they do not raise source fidelity or final rating.
+
 ### 1.4 Anti-Pseudo-Distillation Gate
 
 Before calling any archive final, test it against this gate.
