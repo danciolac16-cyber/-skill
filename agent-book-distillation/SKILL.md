@@ -204,6 +204,40 @@ Required post-generation self-check:
 }
 ```
 
+### 1.3.1 Final Archive Self-Check Gate
+
+When the user asks for a final self-check, batch audit, machine consistency review, or confirmation that archived modules are fully aligned, do not treat field-name hits as proof. Open and inspect every formal archived module in scope.
+
+Minimum self-check order:
+
+1. Ledger completeness: every listed formal module has an audit record.
+2. Problem list: P0/P1/P2 issues are zero, or every remaining issue is named with module, severity, and repair path.
+3. File qualification chain: draft, gatekeeping/reinforcement sidecar, formal HTML, formal PDF, PDF text extraction, title match, hash/path record, and old-version handling.
+4. Index chain: Manifest CSV/JSON, redistilled registry, duplicate-intercept index, and quality table must uniquely hit the same primary module.
+5. Body density: inspect the actual text for Source Audit, triggers, inputs, controls, workflow, schema, prompts, QC, negative constraints, repair, dispatch, capability delta, and black-box JSON. Do not pass a module solely because a machine consistency field exists.
+6. Knowledge layers: verify real use of `original_book`, `modern_supplement`, `related_module`, `unverified_external`, and `unavailable_source` where applicable. Modern supplements must not raise the source-evidence grade.
+7. AIGC conversion: grade the module by its actual responsibility: core production modules should reach `V3_production_ready`; reference/diagnostic modules may be `V2_executable` or `V3_when_routed`; non-production modules must explicitly state `not_directly_applicable` and their routing role.
+8. External-model gatekeeping: any Kimi/Gemini/Claude/DeepSeek draft must remain draft, benchmark, or clue until local evidence and bidirectional comparison support it.
+9. Director/style gate for film modules: do not remove director style, genre conflict, horror, violence, satire, sexuality, politics, or other artistic mechanisms by blanket prohibition. Preserve the creative mechanism as observable parameters, separate source and modern adaptation layers, and add boundaries against copying protected expression or misrepresenting historical/real-world harm.
+
+Use these density labels:
+
+- `substantive_dense`
+- `substantive_adequate`
+- `substantive_but_thin`
+- `machine_aligned_or_thin`
+
+Use these final statuses:
+
+- `qualified`
+- `needs_density_review`
+- `needs_minor_repair`
+- `needs_gatekeeping_repair`
+- `needs_bfi_style_repair`
+- `not_qualified`
+
+Only say a batch is fully aligned when all scoped modules are accounted for, no `machine_aligned_or_thin` modules remain, no P0/P1/P2 issues remain, file and index gaps are zero, modern adaptation does not contaminate original-book evidence, and the AIGC interface level matches each module's role.
+
 ### 1.4 Anti-Pseudo-Distillation Gate
 
 Before calling any archive final, test it against this gate.
@@ -543,6 +577,19 @@ Gatekeeping rules:
 - If external output is richer than this agent's first analysis, use it as a granularity benchmark and upgrade the plan.
 - If external output lacks trigger/input/workflow/output/checker/repair, it is not executable enough for formal archive.
 - The final archive must state whether external model material was used and how it was checked.
+
+Minimum acceptable external-model draft:
+
+1. `Source Audit`: source filename/path, format, size, readability, OCR/scanned status, edition or translation notes.
+2. `Reading Coverage`: chapters, sections, appendices, images, diagrams, tables, or internal files processed; unread or sampled scope must be disclosed.
+3. `Evidence Map`: major concepts, cases, image observations, and methods should point to source chapters, page ranges, or structural units when possible.
+4. `Knowledge Layer Map`: distinguish `original_book`, `modern_supplement`, `related_module`, `unverified_external`, and `unavailable_source`.
+5. `Self-Contamination Audit`: check whether the model inserted familiar modern examples, brands, platforms, tools, directors, or cases that are not in the book.
+6. `Executable Draft`: trigger conditions, inputs, control parameters, workflow, output schema, prompt templates, quality checks, negative constraints, repair rules, dispatch, and black-box JSON.
+7. `AIGC Handoff Draft`: for film/video/advertising/adaptation/visual-production modules, include production stages, upstream inputs, observable control parameters, prompt hooks, video QC, repair, and cross-shot consistency.
+8. `Codex Handoff Notes`: list uncertainty, rating caps, possible mixed-source claims, image-audit gaps, modern-adaptation disputes, and suggested reinforcement.
+
+If an external draft only says "fully read" without coverage evidence, treat it as a pre-gate clue. If it is a chapter summary without executable layers, it cannot become an A-level archive without reinforcement. If it is image-heavy but lacks image audit, cap the rating until visual coverage is repaired.
 
 ### 1.8.1 Codex Gatekeeping Requires Bidirectional Full-Text Comparison
 
