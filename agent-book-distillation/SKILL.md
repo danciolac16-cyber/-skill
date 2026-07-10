@@ -591,6 +591,26 @@ Minimum acceptable external-model draft:
 
 If an external draft only says "fully read" without coverage evidence, treat it as a pre-gate clue. If it is a chapter summary without executable layers, it cannot become an A-level archive without reinforcement. If it is image-heavy but lacks image audit, cap the rating until visual coverage is repaired.
 
+Positive flywheel rule:
+
+External model drafts can improve the standard, not only pass or fail it. Classify every strong external draft against the current skill/project rules:
+
+- `below_current_standard`: reject, return for redistillation, or explicitly reinforce before archive.
+- `meets_current_standard`: run normal local-source gatekeeping and bidirectional comparison.
+- `exceeds_current_standard`: tell the user immediately that the draft contains a practice above the current standard, extract the reusable rule candidate, and ask whether to institutionalize it in the project guide, this skill, or both.
+
+When a draft exceeds the current standard, look for reusable improvements such as better source audit, fuller reading coverage evidence, image-audit method, self-contamination checks, provenance layering, AIGC control panels, quality checkers, repair rules, handoff schemas, or index-chain validation.
+
+Do not silently consume superior draft practices as one-off content. If the improvement is reusable across books, evidence-safe, and agent-executable, propose a rule update. After user confirmation, update and sync the rules before relying on the higher practice as the new baseline.
+
+Use linked standard uplift:
+
+1. A higher external-draft standard raises the Codex gatekeeping standard.
+2. A higher gatekeeping standard raises formal HTML/PDF archive requirements.
+3. Higher archive requirements raise final self-check and batch-audit requirements.
+4. Historical modules are not automatically invalidated, but should enter a `legacy_reinforcement_queue` when they fall below the new baseline.
+5. Keep source-evidence grade separate from modern executability and AIGC production readiness; a better modern interface does not repair unread pages, OCR limits, or missing source evidence.
+
 ### 1.8.1 Codex Gatekeeping Requires Bidirectional Full-Text Comparison
 
 For this user's AIGC book-knowledge-base project, **Codex gatekeeping is not a light pre-check**. If the user asks Codex to 守门 an external model draft, the minimum standard is:
