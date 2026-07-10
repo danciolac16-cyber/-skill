@@ -299,6 +299,54 @@ Use this issue shape for repair queues and P0/P1/P2 audit tables:
 
 Do not use these fields as decoration. If a value is unknown, leave it blank and state the evidence gap. Standard version fields document which rules were used; they do not raise source fidelity or final rating.
 
+File and sidecar naming:
+
+Use one primary archive entry per module, plus traceable sidecars. Keep the same `module_slug` across formal HTML, formal PDF, Manifest, gatekeeping reports, reinforcement notes, and self-check files.
+
+Slug rules:
+
+- Allow Chinese, English, digits, and `_`.
+- Remove leading/trailing spaces.
+- Replace repeated spaces with `_`.
+- Avoid Windows-unsafe characters: `\/:*?"<>|`.
+- Use `YYYYMMDD` for dates; for multiple same-day versions, append `_v2`, `_v3`.
+
+Primary archive names:
+
+```text
+{module_slug}_AI知识库蒸馏版.html
+{module_slug}_AI知识库蒸馏版.pdf
+```
+
+If an existing module already has a stable primary name, keep it unless the user is explicitly doing a version replacement. Update indexes instead of creating a parallel main entry.
+
+Sidecar names:
+
+```text
+{module_slug}__codex_gatekeeping__YYYYMMDD.md
+{module_slug}__bidirectional_matrix__YYYYMMDD.json
+{module_slug}__source_audit__YYYYMMDD.json
+{module_slug}__image_audit__YYYYMMDD.md
+{module_slug}__reinforcement_report__YYYYMMDD.md
+{module_slug}__aigc_interface_reinforcement__YYYYMMDD.md
+{module_slug}__post_self_check__YYYYMMDD.json
+{module_slug}__old_version_replacement__YYYYMMDD.csv
+```
+
+Batch audit names:
+
+```text
+{batch_slug}__deep_audit__YYYYMMDD.csv
+{batch_slug}__granularity_score__YYYYMMDD.csv
+{batch_slug}__knowledge_layer_audit__YYYYMMDD.csv
+{batch_slug}__aigc_interface_audit__YYYYMMDD.csv
+{batch_slug}__file_chain_audit__YYYYMMDD.csv
+{batch_slug}__repair_queue__YYYYMMDD.csv
+{batch_slug}__final_report__YYYYMMDD.md
+```
+
+Do not use vague names such as "final", "latest", "new new version", "fixed", or "done" as the only version signal. Do not name an external-model draft as a Codex gatekeeping report. Do not name sidecars as if they were primary modules.
+
 ### 1.4 Anti-Pseudo-Distillation Gate
 
 Before calling any archive final, test it against this gate.
