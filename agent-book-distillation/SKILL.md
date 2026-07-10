@@ -193,6 +193,17 @@ Required post-generation self-check:
     "html_created": true,
     "pdf_created": true,
     "pdf_text_extractable": true,
+    "encoding_and_mojibake_check": {
+      "html_utf8_readable": true,
+      "html_mojibake_hits": 0,
+      "pdf_text_extractable": true,
+      "pdf_mojibake_hits": 0,
+      "csv_json_reopen_ok": true,
+      "terminal_display_mojibake_only": false,
+      "p2_source_mojibake_risk": [],
+      "blocking_issues": [],
+      "repair_required_before_archive": false
+    },
     "index_updated": true,
     "old_version_replaced_or_retained_correctly": true,
     "expected_grade_from_analysis": "A- / A",
@@ -219,6 +230,7 @@ Minimum self-check order:
 7. AIGC conversion: grade the module by its actual responsibility: core production modules should reach `V3_production_ready`; reference/diagnostic modules may be `V2_executable` or `V3_when_routed`; non-production modules must explicitly state `not_directly_applicable` and their routing role.
 8. External-model gatekeeping: any Kimi/Gemini/Claude/DeepSeek draft must remain draft, benchmark, or clue until local evidence and bidirectional comparison support it.
 9. Director/style gate for film modules: do not remove director style, genre conflict, horror, violence, satire, sexuality, politics, or other artistic mechanisms by blanket prohibition. Preserve the creative mechanism as observable parameters, separate source and modern adaptation layers, and add boundaries against copying protected expression or misrepresenting historical/real-world harm.
+10. Encoding/mojibake gate: formal HTML/PDF, gatekeeping reports, reinforcement sidecars, CSV indexes, and JSON indexes must be re-opened programmatically after generation. Do not rely on terminal display. Typical mojibake or replacement characters in formal outputs block archive completion until repaired.
 
 Use these density labels:
 
@@ -237,6 +249,44 @@ Use these final statuses:
 - `not_qualified`
 
 Only say a batch is fully aligned when all scoped modules are accounted for, no `machine_aligned_or_thin` modules remain, no P0/P1/P2 issues remain, file and index gaps are zero, modern adaptation does not contaminate original-book evidence, and the AIGC interface level matches each module's role.
+
+### 1.3.2 Encoding And Mojibake Gate
+
+Every formal archive and batch audit must include a post-output encoding check. This prevents normal UTF-8 files from being misjudged because PowerShell or another terminal renders Chinese paths incorrectly, and it also prevents real mojibake from entering final archives.
+
+Minimum checks:
+
+1. Re-open generated HTML, Markdown, CSV, and JSON with UTF-8 or UTF-8-SIG. The file passes only if Chinese titles, paths, module names, and required field names are readable after programmatic re-open.
+2. Extract text from generated PDF and inspect the title, module name, section headings, and key JSON field names.
+3. Scan generated formal outputs for typical mojibake/replacement markers such as `�`, `锟斤拷`, `鏅鸿兘`, `浣撲`, `涓存`, `闃舵`, and repeated `????`.
+4. Distinguish display mojibake from file mojibake. If a terminal shows garbled Chinese but a UTF-8 programmatic read returns correct Unicode, record it as `terminal_display_mojibake_only`.
+5. Treat formal HTML/PDF, gatekeeping reports, reinforcement sidecars, Manifest CSV/JSON, quality tables, and replacement records as blocking surfaces. Any real mojibake there must be repaired before archive completion.
+6. Treat OCR samples, raw extraction workspaces, and external-model drafts as P2 source-risk surfaces. Mojibake there does not automatically invalidate an already-clean formal archive, but if a high rating depends on that source, require re-extraction, OCR repair, or source re-check before raising the evidence grade.
+
+Recommended check object:
+
+```json
+{
+  "Encoding_Mojibake_Gate": {
+    "checked_surfaces": ["html", "pdf_text", "csv_json", "sidecar", "raw_extracts_if_used"],
+    "formal_outputs_utf8_readable": true,
+    "formal_outputs_mojibake_hits": 0,
+    "pdf_text_extractable": true,
+    "pdf_text_mojibake_hits": 0,
+    "index_files_reopen_ok": true,
+    "terminal_display_mojibake_only": false,
+    "p2_source_risks": [],
+    "archive_blocked": false,
+    "repair_actions": []
+  }
+}
+```
+
+Rating rule:
+
+- Real mojibake in a final HTML/PDF or required index is a completion blocker.
+- Real mojibake in a gatekeeping report or reinforcement sidecar blocks claims of final gatekeeping until repaired.
+- Real mojibake in raw OCR/extraction material caps evidence confidence for modules relying on that material, but does not by itself downgrade a clean formal module that was already verified against a better source.
 
 Standard version and repair schemas:
 
