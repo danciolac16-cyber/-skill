@@ -250,6 +250,72 @@ Use these final statuses:
 
 Only say a batch is fully aligned when all scoped modules are accounted for, no `machine_aligned_or_thin` modules remain, no P0/P1/P2 issues remain, file and index gaps are zero, modern adaptation does not contaminate original-book evidence, and the AIGC interface level matches each module's role.
 
+### 1.3.1.1 Scope Closure For Batch Archive Audits
+
+When auditing a batch such as Kimi75, upgraded94, BFI subsets, or any archived module directory, first close the scope before judging quality. Do not extrapolate a passing audit from one ledger to a larger archive directory.
+
+Required distinctions:
+
+1. **Audit records vs unique formal entries**: a ledger may contain 75 records but map to fewer unique HTML/PDF entries if several drafts were merged into one formal module. Report both counts.
+2. **Ledger scope vs archive-directory scope**: a Kimi/Claude/Gemini ledger passing review only proves that ledger's mapped modules passed. It does not automatically prove every file in `html/正式归档_已升级` passed the same standard.
+3. **New rule backfill vs rework**: when a new rule is introduced after a batch already passed, first create a supplement note/backfill table. Do not redistill or rewrite the batch unless the new rule reveals an actual P0/P1 defect.
+4. **Evidence count wins over estimated count**: if the user says "19 modules" but the directory/ledger evidence shows 21 unique modules, audit 21 and explain the discrepancy. File names should use the evidence-based count; compatibility aliases are optional but must not hide the true count.
+5. **Severity calibration**: reserve P0 for file-chain and archive-validity blockers such as missing HTML/PDF, unextractable PDF, non-unique Manifest entry, real formal-output mojibake, or archive invalidity. Treat AIGC interface gaps, knowledge-layer gaps, Prompt/QC/Repair weakness, reading disclosure weakness, and body-density weakness as P1 unless they also break the archive.
+
+Standard batch workflow:
+
+1. Build a scope-difference table:
+   - formal HTML count;
+   - formal PDF count;
+   - HTML/PDF pairing;
+   - Manifest uniqueness;
+   - in-ledger vs out-of-ledger status;
+   - current rating;
+   - need for re-audit and reason.
+2. Review out-of-ledger upgraded modules one by one:
+   - Source Audit;
+   - Reading Coverage;
+   - `AIGC_Video_Production_Interface`;
+   - `original_book / modern_supplement`;
+   - Prompt / QC / Repair executability;
+   - HTML/PDF pairing;
+   - PDF text extraction;
+   - Manifest unique hit;
+   - formal-output mojibake;
+   - substantive body density rather than marker-only compliance.
+3. Backfill newly introduced rules for already-passed ledger modules:
+   - previous pass date;
+   - previous evidence table/report;
+   - new rule date and name;
+   - whether the new rule blocks the module;
+   - future-edit self-check requirement.
+4. Produce a final conclusion with two separate booleans:
+   - `all_file_chain_aligned`;
+   - `all_latest_content_standard_aligned`.
+
+Recommended outputs:
+
+```json
+{
+  "batch_scope_closure": {
+    "ledger_record_count": 75,
+    "ledger_unique_formal_entry_count": 73,
+    "archive_unique_entry_count": 94,
+    "out_of_ledger_unique_entry_count": 21,
+    "html_pdf_pair_breaks": 0,
+    "manifest_non_unique_or_missing": 0,
+    "new_rule_backfill_count": 75,
+    "out_of_ledger_review_count": 21,
+    "p0_count": 0,
+    "p1_count": 90,
+    "all_file_chain_aligned": true,
+    "all_latest_content_standard_aligned": false,
+    "can_use_for_current_agent_kb": true,
+    "can_claim_full_latest_alignment": false
+  }
+}
+```
+
 ### 1.3.2 Encoding And Mojibake Gate
 
 Every formal archive and batch audit must include a post-output encoding check. This prevents normal UTF-8 files from being misjudged because PowerShell or another terminal renders Chinese paths incorrectly, and it also prevents real mojibake from entering final archives.
